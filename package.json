@@ -1,7 +1,7 @@
 {
   "name": "create-express-new-project",
   "version": "1.1.1",
-  "description": "Official Express.js project generator CLI with alias support (`npx create-express-new-project <name>` or `npx create-new-express-project <name>`).",
+  "description": "Official Express.js project generator CLI with alias support (`npx create-express-new-project <name>`).",
   "bin": {
     "create-express-new-project": "./index.js",
     "create-new-express-project": "./index.js"
@@ -28,5 +28,13 @@
   },
   "engines": {
     "node": ">=14"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MozzammelRidoy/create-express-new-project"
+  },
+  "bugs": {
+    "url": "https://github.com/MozzammelRidoy/create-express-new-project/issues"
+  },
+  "homepage": "https://github.com/MozzammelRidoy"
 }
