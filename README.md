@@ -256,3 +256,20 @@ my-test-project/
     meta,
   };
   ```
+
+- /src/**config/index.ts** <br/> Central configuration file that manages environment variables and application settings. This file provides a structured way to access environment variables throughout the application.
+
+```typescript
+// In config/index.ts
+export default {
+  // ... other env configurations
+
+  // New Env file Setup after ensure your .env file same secret is declear.
+  your_another_env_secret: ensureEnv("YOUR_ANOTHER_ENV_SECRET"),
+};
+
+// Accessing the configuration in other files
+import config from "../../config";
+
+const your_another_env_secret = config.your_another_env_secret;
+```
