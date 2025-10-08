@@ -12,6 +12,7 @@ A powerful and professional [Express.js project generator CLI](https://www.npmjs
 - [Key Elements](#Key-Elements)
 - [Folder Structure](#Folder-Structure)
 - [Packages](#Packages)
+- [Examples](#Examples)
 
 # [Quick Start](#Quick-Start)
 
@@ -171,3 +172,87 @@ my-test-project/
 - [ts-node-dev (2.0.0)](https://www.npmjs.com/package/ts-node-dev)
 - [typescript (5.9.2)](https://www.npmjs.com/package/typescript)
 - [typescript-eslint (8.43.0)](https://www.npmjs.com/package/typescript-eslint)
+
+## [Examples](#Examples)
+
+- /src/app/builder/**MongooseQueryBuilder.ts** <br/>
+  A fluent API for building complex MongoDB queries with Mongoose. Simplifies dynamic query construction for search, filtering, sorting, pagination, and field selection in a chainable interface.
+
+  ```typescript
+  // In your controller/service:
+  import MongooseQueryBuilder from "../../builder/MongooseQueryBuilder";
+
+  // Extract query parameters from request (e.g., ?search=keyword&page=1&limit=10)
+  const { page, limit, sort, search, fields, ...filters } = req.query;
+
+  // Create a new query builder instance
+  const docQuery = new MongooseQueryBuilder(YourModel.find(), req.query)
+
+    // Search in specified text fields (e.g., name, description, category)
+    .search(["name", "description", "category"])
+
+    // Apply filters dynamically (e.g., status=active, category=tech)
+    .filter()
+
+    // Sort results (e.g., ?sort=name asc,sort=-createdAt desc)
+    .sort()
+
+    // Paginate results (e.g., ?page=1&limit=10)
+    .paginate()
+
+    // Select specific fields (e.g., ?fields=name,price,description)
+    .fields();
+
+  // Execute the query and get results
+  const result = await docQuery.modelQuery;
+
+  // Get pagination metadata (total count, page, limit, total pages)
+  const meta = await docQuery.countTotal();
+
+  // Return the results and metadata from service
+  return {
+    result,
+    meta,
+  };
+  ```
+
+- /src/app/builder/**PrismaQueryBuilder.ts** <br/>
+  A fluent API for building complex SQL queries with Prisma. Simplifies dynamic query construction for search, filtering, sorting, pagination, and field selection in a chainable interface.
+
+  ```typescript
+  // In your controller/service:
+  import PrismaQueryBuilder from "../../builder/PrismaQueryBuilder";
+
+  // Extract query parameters from request (e.g., ?search=keyword&page=1&limit=10)
+  const { page, limit, sort, search, fields, ...filters } = req.query;
+
+  // Create a new query builder instance
+  const docQuery = new PrismaQueryBuilder(YourModel.find(), req.query)
+
+    // Search in specified text fields (e.g., name, description, category)
+    .search(["name", "description", "category"])
+
+    // Apply filters dynamically (e.g., status=active, category=tech)
+    .filter()
+
+    // Sort results (e.g., ?sort=name asc,sort=-createdAt desc)
+    .sort()
+
+    // Paginate results (e.g., ?page=1&limit=10)
+    .paginate()
+
+    // Select specific fields (e.g., ?fields=name,price,description)
+    .fields();
+
+  // Execute the query and get results
+  const result = await docQuery.modelQuery;
+
+  // Get pagination metadata (total count, page, limit, total pages)
+  const meta = await docQuery.countTotal();
+
+  // Return the results and metadata from service
+  return {
+    result,
+    meta,
+  };
+  ```
