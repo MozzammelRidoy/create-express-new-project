@@ -265,11 +265,21 @@ export default {
   // ... other env configurations
 
   // New Env file Setup after ensure your .env file same secret is declear.
-  your_another_env_secret: ensureEnv("YOUR_ANOTHER_ENV_SECRET"),
+  your_new_env_secret: ensureEnv("YOUR_NEW_ENV_SECRET"),
 };
 
 // Accessing the configuration in other files
 import config from "../../config";
 
-const your_another_env_secret = config.your_another_env_secret;
+const your_new_env_secret = config.your_new_env_secret;
+```
+
+- /src/errors/**AppError.ts** <br/> Custom error class for handling application-specific errors. This class extends the built-in `Error` class and adds additional properties for HTTP status code and error path.
+
+```typescript
+// Accessing the AppError in other files
+import AppError from "../../errors/AppError";
+
+// Throw an application error with status code, path, and message
+throw new AppError(404, "user", "User not found");
 ```
