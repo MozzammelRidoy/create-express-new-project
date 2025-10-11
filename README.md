@@ -594,7 +594,6 @@ const decoded = verifyToken(token, config.jwt_access_token_secret);
 // Returns: { userId: "123", role: "admin", iat: ..., exp: ... }
 ```
 
-
 - /src/utils/**date_Time_Validation.ts** <br/> Utility functions for date and time validation, formatting, and manipulation.
 
 ```typescript
@@ -633,3 +632,47 @@ const daysDiff = getDateDifference(
 ); // Returns: 9
 ```
 
+- /src/utils/**node_cache.ts** <br/>  
+  Utility functions for in-memory caching using Node.js. Provides simple methods to store, retrieve, and manage cached data with optional expiration.
+
+```typescript
+// In your service file or any file
+import {
+  create_cache_into_RAM,
+  get_cache_from_RAM,
+  delete_cache_from_RAM,
+  clear_all_cache,
+  has_cache_key,
+  get_cache_stats,
+  get_cache_ttl,
+  get_all_cache_keys,
+} from "../../utils/node_cache";
+
+// Create cache entries
+create_cache_into_RAM("user:123", { name: "John", age: 30 }, 3600); // With TTL
+create_cache_into_RAM("config", { theme: "dark" }); // Without TTL
+
+// Retrieve cached data
+const user = get_cache_from_RAM("user:123"); // { name: "John", age: 30 }
+const config = get_cache_from_RAM("config"); // { theme: "dark" }
+
+// Check if cache key exists
+const userExists = has_cache_key("user:123"); // true
+const configExists = has_cache_key("config"); // true
+
+// Get TTL for a key
+const userTtl = get_cache_ttl("user:123"); // 3600 (seconds)
+const configTtl = get_cache_ttl("config"); // 0 (no TTL)
+
+// Get all cache keys
+const allKeys = get_all_cache_keys(); // ["user:123", "config"]
+
+// Get cache statistics
+const stats = get_cache_stats(); // { keys: 2, hits: 0, misses: 0, ... }
+
+// Delete specific cache entry
+delete_cache_from_RAM("user:123"); // 1 (deleted)
+
+// Clear all cache
+clear_all_cache(); // Removes all entries
+```
