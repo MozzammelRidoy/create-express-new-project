@@ -453,3 +453,53 @@ export const ProductValidation = {
   createProduct_ValidationZodSchema,
 };
 ```
+
+- /src/**routers/index.ts** <br/>
+  Centralized router file for grouping and exporting all route modules.
+
+```typescript
+// In your src/routers/index.ts
+import { ProductRoutes } from "../modules/product/product_route";
+
+// Define all route modules with their paths
+const moduleRoutes = [
+  {
+    path: "/products",
+    route: ProductRoutes,
+  },
+  {
+    path: "/new-route",
+    route: NewRouteRoutes,
+  },
+];
+
+// Creating a New Route Group
+// Create new route file: src/routers/new-route.ts
+import { Router } from "express";
+const newRouters = Router();
+
+// Define routes for this group
+const moduleRoutes = [
+  {
+    path: "/new-version",
+    route: newVersionRoutes,
+  },
+];
+
+// Register routes in this group
+moduleRoutes.forEach((route) => {
+  newRouters.use(route.path, route.route);
+});
+
+export default newRouters;
+
+// Applying in app.ts:
+import routers from "./routers";
+import newRouters from "./routers/new-route";
+
+// Apply main routes with version prefix
+app.use("/v1/api", routers);
+
+// Apply new route group with different version
+app.use("/v2/api", newRouters);
+```
