@@ -345,3 +345,35 @@ import notFound from "./app/middlewares/notFound";
 app.use(globalErrorHandler as unknown as express.ErrorRequestHandler);
 app.use(notFound as unknown as express.ErrorRequestHandler);
 ```
+
+- /src/middlewares/**handleFileUpload.ts**  
+  Middleware for handling file uploads in multipart/form-data requests. Uses `multer` to process uploaded files and stores them in the specified directory. Returns an array of file objects (`req.files`) to the next middleware.
+
+```typescript
+// In your route file
+import { handle_file_upload_middleware } from "../../middlewares/handleFileUpload";
+
+// Apply the middleware to the route
+router.post(
+  "/create",
+  handle_file_upload_middleware([
+    {
+      fieldName: "image", // Form field name for the file
+      maxCount: 1, // Maximum number of files allowed
+      fileType: "image", // Type of file (image, document, etc.)
+      optional: false, // Whether the file is required,
+      allowedImageTypes: [
+        "image/jpeg",
+        "image/png",
+        "image/gif",
+        "image/webp",
+        "image/bmp",
+        "image/svg+xml",
+      ], // Allowed image types,
+      maxImageSize: 1024 * 1024 * 2, // Maximum image size in bytes (2MB)
+    },
+  ]),
+  formDataToSetJSONformatData, // Convert form data to JSON
+  ProductController.createProduct
+);
+```
