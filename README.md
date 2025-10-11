@@ -676,3 +676,28 @@ delete_cache_from_RAM("user:123"); // 1 (deleted)
 // Clear all cache
 clear_all_cache(); // Removes all entries
 ```
+
+- /src/utils/**removeUploadedFiles.ts** <br/>  
+   Utility functions for cleaning up uploaded files from local storage after cloud upload or error handling.
+
+```typescript
+// In your service file or any file
+import {
+  removeSingleUploadedFile,
+  removeUploadedFiles,
+  removeFilesFromFields,
+  cleanUploadDirectory,
+} from "../../utils/removeUploadedFiles";
+
+// Remove a single file
+await removeSingleUploadedFile("/path/to/file.jpg");
+
+// Remove all uploaded files from multer request
+await removeUploadedFiles(req.files);
+
+// Remove files from specific fields only
+await removeFilesFromFields(req.files, ["images", "documents"]);
+
+// Clean entire upload directory
+await cleanUploadDirectory("/path/to/uploads");
+```
