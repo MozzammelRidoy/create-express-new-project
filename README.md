@@ -332,3 +332,16 @@ router.post(
   ProductControllers.createProduct // Finally process the request
 );
 ```
+
+- /src/middlewares/**globalErrorHandler.ts** && /src/middlewares/**notFound.ts**  
+  Global error handling middlewares. `globalErrorHandler` catches and handles errors that occur during the request-response cycle, while `notFound` handles requests for routes that do not exist.
+
+```typescript
+// In your app.ts
+import globalErrorHandler from "./app/middlewares/globalErrorHandler";
+import notFound from "./app/middlewares/notFound";
+
+// Apply to the app (order matters: notFound should be last)
+app.use(globalErrorHandler as unknown as express.ErrorRequestHandler);
+app.use(notFound as unknown as express.ErrorRequestHandler);
+```
