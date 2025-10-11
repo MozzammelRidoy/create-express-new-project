@@ -701,3 +701,26 @@ await removeFilesFromFields(req.files, ["images", "documents"]);
 // Clean entire upload directory
 await cleanUploadDirectory("/path/to/uploads");
 ```
+
+- /src/utils/**sendEmail.ts** <br/>  
+  Utility functions for sending emails using Nodemailer with HTML content, attachments, and error handling.
+
+```typescript
+// In your service file or any file
+import sendEmail, { testEmailConfig } from "../../utils/sendEmail";
+import { TEmailFormat } from "../../interfaces/emailFormat";
+
+// Send email with HTML content
+const emailTemplate: TEmailFormat = {
+  subject: "Welcome to Our Platform",
+  emailBody: `
+    <h1>Welcome!</h1>
+    <p>Thank you for joining our platform.</p>
+  `,
+};
+
+await sendEmail(payload.email, emailTemplate);
+
+// Test email configuration
+await testEmailConfig();
+```
