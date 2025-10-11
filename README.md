@@ -724,3 +724,46 @@ await sendEmail(payload.email, emailTemplate);
 // Test email configuration
 await testEmailConfig();
 ```
+
+- /src/utils/**sendResponse.ts** <br/>  
+  Utility function for sending standardized API responses with appropriate status codes, success flags, and data.
+
+```typescript
+// In your Controller file (e.g., product_controller.ts)
+import sendResponse from "../../utils/sendResponse";
+
+// Traditional approach without sendResponse utility
+const get_AllProducts = catchAsync(async (req, res) => {
+  const result = await Product_Services.fetch_AllProductsFromDB(
+    req.params.user_id,
+    req.query
+  );
+
+  res.status(200).json({
+    success: true,
+    message: "Products are retrieved successfully!",
+    data: result.result,
+    meta: result.meta,
+  });
+});
+
+// Using sendResponse utility
+const get_AllProducts = catchAsync(async (req, res) => {
+  const result = await Product_Services.fetch_AllProductsFromDB(
+    req.params.user_id,
+    req.query
+  );
+
+  sendResponse(res, {
+    status: 200,
+    success: true,
+    message: "Products are retrieved successfully!",
+    data: result.result,
+    meta: result.meta, // meta is optional object.
+  });
+});
+
+export const Product_Controllers = {
+  get_AllProducts,
+};
+```
