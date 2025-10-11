@@ -283,3 +283,36 @@ import AppError from "../../errors/AppError";
 // Throw an application error with status code, path, and message
 throw new AppError(404, "user", "User not found");
 ```
+
+- /src/middlewares/**auth.ts**  
+  Middleware for authenticating requests. This middleware checks for a valid JWT token in the request headers and verifies its authenticity. If the token is valid, the user information is added to the request object (`req.user`) for further processing.
+
+```typescript
+// In your route file
+import auth from "../../middlewares/auth";
+
+// Protect a route with specific roles
+router.get(
+  "/users",
+  auth("user", "admin", "superAdmin", "developer"), // Only users with these roles can access
+  UsersControllers.getAllUsers
+);
+
+// Protect a route without role checking (just verify token)
+router.get(
+  "/profile",
+  auth("user", "admin", "superAdmin", "developer", true), // Any authenticated user can access
+  UsersController.getUserProfile
+);
+```
+
+- /src/middlewares/**bigIntSerializer.ts**  
+  Middleware for serializing BigInt values to strings. This middleware ensures that BigInt values are correctly converted to strings when sending JSON responses to the client, preventing serialization errors.
+
+```typescript
+// In your app.ts file
+import { bigIntSerializer } from "./app/middlewares/bigIntSerializer";
+
+// Apply globally to all routes
+app.use(bigIntSerializer);
+```
