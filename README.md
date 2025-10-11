@@ -585,10 +585,51 @@ const barcodeId = generateRandomBarcodeId(); // Returns: "153.04.55.022"
 // JWT operations (if auth is enabled)
 const token = createToken(
   { user_id: "123", role: "admin" },
-  "your-secret-key",
-  "1d"
+  config.jwt_access_token_secret,
+  config.jwt_access_token_expires_in
 ); // Returns JWT token
 
-const decoded = verifyToken(token, "your-secret-key");
+// JWT Token Verify and Decode
+const decoded = verifyToken(token, config.jwt_access_token_secret);
 // Returns: { userId: "123", role: "admin", iat: ..., exp: ... }
 ```
+
+
+- /src/utils/**date_Time_Validation.ts** <br/> Utility functions for date and time validation, formatting, and manipulation.
+
+```typescript
+// In your service file or any file
+import {
+  isValidDate,
+  Start_End_DateTime_Validation,
+  isDateInRange,
+  formatDateToISOString,
+  getDateDifference,
+} from "../../utils/date_Time_Validation";
+
+// Validate if a date string is valid
+const isDateValid = isValidDate(payload.date); // Returns: true
+const isInvalid = isValidDate(payload.date); // Returns: false
+
+// Validate and normalize start and end dates
+const { start, end } = Start_End_DateTime_Validation(
+  payload.start_date,
+  payload.end_date
+);
+// Returns: { start: Date, end: Date } with proper date objects
+
+// Check if a date is within a range
+const inRange = isDateInRange(new Date(), payload.start_date, payload.end_date); // Returns: true
+
+// Format date to ISO string without timezone
+const isoDate = formatDateToISOString(new Date());
+// Returns: "2023-12-31T12:34:56"
+
+// Get difference between two dates
+const daysDiff = getDateDifference(
+  payload.start_date,
+  payload.end_date,
+  "days"
+); // Returns: 9
+```
+
