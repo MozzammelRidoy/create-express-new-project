@@ -377,3 +377,49 @@ router.post(
   ProductController.createProduct
 );
 ```
+
+- /src/middlewares/**rateLimitingHandler.ts**  
+  Rate limiting middleware to prevent API abuse. Implements progressive rate limiting that increases block duration for repeat offenders.
+
+```typescript
+// In your app.ts file for global rate limiting or
+// In your route file for route-specific rate limiting
+
+import { createProgressiveRateLimiter } from "../../middlewares/rateLimitingHandler";
+
+// Create rate limiter instances with different configurations
+const apiRateLimiter = createProgressiveRateLimiter({
+  initialWindowMs: 60 * 1000, // 1 minute
+  initialMax: 100, // limit each IP to 100 requests per windowMs
+  initialBlockMs: 15 * 60 * 1000, // block for 15 minutes on first offense
+  message: {
+    success: false,
+    message: "Too many requests from this IP, please try again later.",
+  },
+  skipSuccessfulRequests: false,
+  skipFailedRequests: false,
+  // Custom keyGenerator to handle proxied requests
+  keyGenerator: (req: Request) => {
+    // Check for X-Forwarded-For header (common when behind proxy)
+    const forwarded = req.headers["x-forwarded-for"] as string;
+    if (forwarded) {
+      // If multiple IPs, take the first one (client IP)
+      return forwarded.split(",")[0].trim();
+    }
+
+    // Fallback to other methods
+    return (
+      req.ip ||
+      req.socket?.remoteAddress ||
+      req.connection?.remoteAddress ||
+      "unknown"
+    );
+  },
+});
+
+// Apply rate limiter to a specific route
+router.get("/products", apiRateLimiter, ProductControllers.getAllProducts);
+
+// Apply rate limiter globally to all API routes
+app.use("/v1/api/", apiRateLimiter, routers);
+```
