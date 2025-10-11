@@ -423,3 +423,33 @@ router.get("/products", apiRateLimiter, ProductControllers.getAllProducts);
 // Apply rate limiter globally to all API routes
 app.use("/v1/api/", apiRateLimiter, routers);
 ```
+
+- /src/middlewares/**validateRequest.ts** <br/>
+  Middleware for validating incoming requests using Zod schemas. It checks for required fields, data formats, and returns an error response if validation fails.
+
+```typescript
+// In your route file
+import validateRequest from "../../middlewares/validateRequest";
+import { ProductValidation } from "../../app/models/product_validationZodSchema";
+
+router.post(
+  "/create",
+  validateRequest(ProductValidation.createProduct_ValidationZodSchema),
+  ProductControllers.createProduct
+);
+
+// /src/app/models/product_validationZodSchema.ts
+import { z } from "zod";
+
+const createProduct_ValidationZodSchema = z.object({
+  body: z.object({
+    name: z.string({ required_error: "Name is required" }),
+    price: z.number({ required_error: "Price is required" }).positive(),
+    category: z.string().optional(),
+  }),
+});
+
+export const ProductValidation = {
+  createProduct_ValidationZodSchema,
+};
+```
