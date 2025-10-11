@@ -527,3 +527,68 @@ export const Product_Controllers = {
   get_All_Products,
 };
 ```
+
+- /src/utils/**commonUtils.ts** <br/> Comprehensive utility functions for common tasks including OTP generation, phone/email validation, ID generation, and data formatting.
+
+```typescript
+// In your service file or any file
+import {
+  generateOTP,
+  check_Input_isPhone_Or_isEmail,
+  generateTransactionId,
+  formatPhoneNumber,
+  maskSensitiveInfo,
+  isValidEmail,
+  isValidPhone,
+  generateRandomString,
+  generateRandomBarcodeId,
+  createToken,
+  verifyToken,
+} from "../../utils/commonUtils";
+
+// Generate a 6-digit OTP
+const otp = generateOTP(6); // Returns: "123456"
+
+// Check if input is phone or email
+const inputInfo = check_Input_isPhone_Or_isEmail(payload.credentials);
+// Returns: { type: 'email', value: 'example@example.com' } or
+// Returns: { type: 'phone', value: '01712345678' }
+
+// Generate a unique transaction ID
+const transactionId = generateTransactionId(12); // Returns: "1A2B3C4D5E6F"
+
+// Format phone number
+const formattedPhone = formatPhoneNumber(payload.phone, "international");
+// Returns: "+8801712345678"
+
+// Mask sensitive information
+const maskedEmail = maskSensitiveInfo(payload.email, "email");
+// Returns: "use***@example.com"
+
+// Validate email format
+const isEmailValid = isValidEmail(payload.email); // Returns: true
+
+// Validate phone format
+const isPhoneValid = isValidPhone(payload.phone); // Returns: true
+
+// Generate random string
+const randomString = generateRandomString(10, {
+  includeUppercase: true,
+  includeLowercase: true,
+  includeNumbers: true,
+  includeSymbols: false,
+}); // Returns: "Ab3D7fG9H2"
+
+// Generate random barcode ID
+const barcodeId = generateRandomBarcodeId(); // Returns: "153.04.55.022"
+
+// JWT operations (if auth is enabled)
+const token = createToken(
+  { user_id: "123", role: "admin" },
+  "your-secret-key",
+  "1d"
+); // Returns JWT token
+
+const decoded = verifyToken(token, "your-secret-key");
+// Returns: { userId: "123", role: "admin", iat: ..., exp: ... }
+```
