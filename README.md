@@ -314,5 +314,21 @@ router.get(
 import { bigIntSerializer } from "./app/middlewares/bigIntSerializer";
 
 // Apply globally to all routes
-app.use(bigIntSerializer);
+app.use(bigIntSerialize
+```
+
+- /src/middlewares/**formDataToSetJSONformatData.ts**  
+  Middleware for converting form data to JSON format. This middleware parses form data (typically from multipart/form-data requests) and converts it to a JSON object (`req.body`), making it easier to process in your route handlers.
+
+```typescript
+// In your route file
+import formDataToSetJSONformatData from "../../middlewares/formDataToSetJSONformatData";
+
+// Apply to routes that handle both file uploads and JSON data
+router.post(
+  "/create",
+  handleFileUpload([{...}]), // First handle file uploads
+  formDataToSetJSONformatData, // Then convert form data to JSON
+  ProductControllers.createProduct // Finally process the request
+);
 ```
