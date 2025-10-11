@@ -503,3 +503,27 @@ app.use("/v1/api", routers);
 // Apply new route group with different version
 app.use("/v2/api", newRouters);
 ```
+
+- /src/utils/**catchAsync.ts**  
+  Utility function that wraps asynchronous route handlers to automatically catch errors and pass them to the next error-handling middleware.
+
+```typescript
+// In your Controller file , Like : product_controllet.ts
+import catchAsync from "../../utils/catchAsync";
+
+const get_All_Products = catchAsync(async (req, res) => {
+  // Your async controller logic here
+  const result = await Product_Services.get_All_Products_FromDB(
+    req.body,
+    req.query
+  );
+
+  res.status(200).json({
+    data: result,
+  });
+});
+
+export const Product_Controllers = {
+  get_All_Products,
+};
+```
