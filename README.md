@@ -394,40 +394,27 @@ router.post(
 import { createProgressiveRateLimiter } from "../../middlewares/rateLimitingHandler";
 
 // Create rate limiter instances with different configurations
-const apiRateLimiter = createProgressiveRateLimiter({
-  initialWindowMs: 60 * 1000, // 1 minute
-  initialMax: 100, // limit each IP to 100 requests per windowMs
-  initialBlockMs: 15 * 60 * 1000, // block for 15 minutes on first offense
+const globalRateLimiter = createProgressiveRateLimiter({
+  windowMs: 60 * 1000, // 1 minute window
+  maxRequests: 200, // 200 requests per window
+  initialBlockMs: 15 * 60 * 1000, // 15 minutes initial block
+  // enableLogger: true, // Enable console logs
   message: {
     success: false,
     message: "Too many requests from this IP, please try again later.",
   },
-  skipSuccessfulRequests: false,
-  skipFailedRequests: false,
-  // Custom keyGenerator to handle proxied requests
   keyGenerator: (req: Request) => {
-    // Check for X-Forwarded-For header (common when behind proxy)
+    // Get real IP from proxy headers
     const forwarded = req.headers["x-forwarded-for"] as string;
-    if (forwarded) {
-      // If multiple IPs, take the first one (client IP)
-      return forwarded.split(",")[0].trim();
-    }
-
-    // Fallback to other methods
-    return (
-      req.ip ||
-      req.socket?.remoteAddress ||
-      req.connection?.remoteAddress ||
-      "unknown"
-    );
+    if (forwarded) return forwarded.split(",")[0].trim();
+    return req.ip || req.socket?.remoteAddress || "unknown";
   },
 });
-
 // Apply rate limiter to a specific route
-router.get("/products", apiRateLimiter, ProductControllers.getAllProducts);
+router.get("/products", globalRateLimiter, ProductControllers.getAllProducts);
 
 // Apply rate limiter globally to all API routes
-app.use("/v1/api/", apiRateLimiter, routers);
+app.use("/v1/api/", globalRateLimiter, routers);
 ```
 
 - /src/middlewares/**validateRequest.ts** <br/>
@@ -885,4 +872,4 @@ export const Product_Controllers = {
   </tr>
 </table>
 
-> 💡 **Tip:** Get featured as a Sponsored Partner! Check out our [Sponsorship Guidelines](#Reporting-Issues)...
+> 💡 **Tip:** Get featured as a Sponsored Partner! Check out our [Sponsorship Guidelines](#Reporting-Issues).
