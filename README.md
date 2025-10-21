@@ -791,3 +791,98 @@ export const Product_Controllers = {
 </table>
 
 > 💡 Tip: Want to be here? Check out our [Contribution Guidelines](#Reporting-Issues)!
+
+## [Sponsors](#Sponsors)
+
+<table>
+  <tr>
+    <td align="center" width="16.66%">
+      <a href="https://github.com/MozzammelRidoy">
+        <img src="https://static-production.npmjs.com/58a19602036db1daee0d7863c94673a4.png" width="60" height="60" alt="React"/>
+      </a>
+      <br/>
+      <b><a href="https://github.com/MozzammelRidoy">Your Company</a></b>
+    </td>
+    <td align="center" width="16.66%">
+      <a href="https://github.com/MozzammelRidoy">
+        <img src="https://static-production.npmjs.com/58a19602036db1daee0d7863c94673a4.png" width="60" height="60" alt="Express"/>
+      </a>
+      <br/>
+      <b><a href="https://github.com/MozzammelRidoy">Your Company</a></b>
+    </td>
+    <td align="center" width="16.66%">
+      <a href="https://github.com/MozzammelRidoy">
+        <img src="https://static-production.npmjs.com/58a19602036db1daee0d7863c94673a4.png" width="60" height="60" alt="MongoDB"/>
+      </a>
+      <br/>
+      <b><a href="https://github.com/MozzammelRidoy">Your Company</a></b>
+    </td>
+    <td align="center" width="16.66%">
+      <a href="https://github.com/MozzammelRidoy">
+        <img src="https://static-production.npmjs.com/58a19602036db1daee0d7863c94673a4.png" width="60" height="60" alt="Axios"/>
+      </a>
+      <br/>
+      <b><a href="https://github.com/MozzammelRidoy">Your Company</a></b>
+    </td>
+    <td align="center" width="16.66%">
+      <a href="https://github.com/MozzammelRidoy">
+        <img src="https://static-production.npmjs.com/58a19602036db1daee0d7863c94673a4.png" width="60" height="60" alt="Lodash"/>
+      </a>
+      <br/>
+      <b><a href="https://github.com/MozzammelRidoy">Your Company</a></b>
+    </td>
+    <td align="center" width="16.66%">
+      <a href="https://github.com/MozzammelRidoy">
+        <img src="https://static-production.npmjs.com/58a19602036db1daee0d7863c94673a4.png" width="60" height="60" alt="Webpack"/>
+      </a>
+      <br/>
+      <b><a href="https://github.com/MozzammelRidoy">Your Company</a></b>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="16.66%">
+      <a href="https://github.com/MozzammelRidoy">
+        <img src="https://static-production.npmjs.com/58a19602036db1daee0d7863c94673a4.png" width="60" height="60" alt="Next.js"/>
+      </a>
+      <br/>
+      <b><a href="https://github.com/MozzammelRidoy">Your Company</a></b>
+    </td>
+    <td align="center" width="16.66%">
+      <a href="https://github.com/MozzammelRidoy">
+        <img src="https://static-production.npmjs.com/58a19602036db1daee0d7863c94673a4.png" width="60" height="60" alt="TypeScript"/>
+      </a>
+      <br/>
+      <b><a href="https://github.com/MozzammelRidoy">Your Company</a></b>
+    </td>
+    <td align="center" width="16.66%">
+      <a href="https://github.com/MozzammelRidoy">
+        <img src="https://static-production.npmjs.com/58a19602036db1daee0d7863c94673a4.png" width="60" height="60" alt="Tailwind CSS"/>
+      </a>
+      <br/>
+      <b><a href="https://github.com/MozzammelRidoy">Your Company</a></b>
+    </td>
+    <td align="center" width="16.66%">
+      <a href="https://github.com/MozzammelRidoy">
+        <img src="https://static-production.npmjs.com/58a19602036db1daee0d7863c94673a4.png" width="60" height="60" alt="Your Company"/>
+      </a>
+      <br/>
+      <b><a href="https://github.com/MozzammelRidoy">Your Company</a></b>
+    </td>
+    <td align="center" width="16.66%">
+      <a href="https://github.com/MozzammelRidoy">
+        <img src="https://static-production.npmjs.com/58a19602036db1daee0d7863c94673a4.png" width="60" height="60" alt="Your Company"/>
+      </a>
+      <br/>
+      <b><a href="https://github.com/MozzammelRidoy">Your Company</a></b>
+    </td>
+    <td align="center" width="16.66%">
+      <a href="https://github.com/MozzammelRidoy">
+        <img src="https://static-production.npmjs.com/58a19602036db1daee0d7863c94673a4.png" width="60" height="60" alt="Your Company"/>
+      </a>
+      <br/>
+      <b><a href="https://github.com/MozzammelRidoy">Your Company</a></b>
+    </td>
+  </tr>
+</table>
+
+> 💡 **Tip:** Get featured as a Sponsored Partner! Check out our [Sponsorship Guidelines](#Reporting-Issues)...
