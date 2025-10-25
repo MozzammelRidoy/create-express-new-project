@@ -920,3 +920,19 @@ To stay up to date and never miss an important release, you can follow me on:
 - **LinkedIn:** [linkedin.com/in/MozzammelRidoy](https://linkedin.com/in/MozzammelRidoy)
 - **YouTube:** [youtube.com/@MozzammelRidoy](https://youtube.com/@MozzammelRidoy)
 - **Facebook:** [facebook.com/MozzammelRidoyAR](https://www.facebook.com/MozzammelRidoyAR)
+
+## [License](#license)
+
+This project is licensed under a **custom End User License Agreement (EULA)**.  
+You may use this package for personal or commercial projects **in its compiled/distributed form only**.
+
+You **cannot** modify, redistribute, or republish the source code without explicit permission from the author.
+
+For full license terms, see the [LICENSE](./LICENSE) file.
+
+**Contact for collaboration or permission requests:**
+
+- Email: [dev.mozzammelridoy@gmail.com](mailto:dev.mozzammelridoy@gmail.com)
+- LinkedIn: [linkedin.com/in/MozzammelRidoy](https://linkedin.com/in/MozzammelRidoy)
+
+**Copyright © 2025 Mozzammel Ridoy. All rights reserved.**

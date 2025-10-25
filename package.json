@@ -1,6 +1,6 @@
 {
   "name": "create-express-new-project",
-  "version": "1.1.33",
+  "version": "1.1.34",
   "description": "A powerful and professional Express.js project generator CLI that instantly scaffolds a production-ready backend with TypeScript, modular architecture, and built-in support for MongoDB (Mongoose) or PostgreSQL (Prisma). Includes authentication, error handling, rate limiting, file upload, caching, and utility functions—so you can focus on building features instead of boilerplate. Perfect for kickstarting your next Express.js API project with best practices and modern tools.",
   "bin": {
     "create-express-new-project": "./index.js"
@@ -41,17 +41,17 @@
     "dev.MozzammelRidoy"
   ],
   "author": "Mozzammel Ridoy",
-  "license": "MIT",
+  "license": "SEE LICENSE IN LICENSE",
   "files": [
     "index.js",
     "README.md",
     "LICENSE"
   ],
   "dependencies": {
-    "express-project-builder": "^1.0.31"
+    "express-project-builder": "^1.0.34"
   },
   "engines": {
-    "node": ">=14"
+    "node": ">=14.0.0"
   },
   "repository": {
     "type": "git",

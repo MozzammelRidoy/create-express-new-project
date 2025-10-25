@@ -1,0 +1,39 @@
+End User License Agreement (EULA) for Express Project Builder
+
+Copyright © 2025 Mozzammel Ridoy
+All rights reserved.
+
+Official Publish Date: September 21, 2025
+
+This End User License Agreement (“Agreement”) is a legal contract between you (“User”) and Mozzammel Ridoy (“Author”) for the use of the software package Create Express New Project (the “Software”). By installing, accessing, or using the Software, you agree to be bound by the terms of this Agreement.
+
+1. Grant of License
+   The Author grants the User a non-exclusive, non-transferable, limited license to use the Software for personal or commercial projects solely in its compiled / distributed form as published on npm.
+
+2. Restrictions
+   The User may NOT, under any circumstances:
+
+   - Copy, reproduce, modify, or reverse-engineer the source code of the Software.
+   - Redistribute, republish, sell, or sublicense the Software in any form, whether original or modified.
+   - Claim authorship, ownership, or authorship rights of the Software.
+
+3. Collaboration and Contribution
+   Developers who wish to contribute, modify, or extend the Software must contact the Author for explicit written permission. Only authorized collaborators may make changes to the Software codebase.
+
+Contact Information for Collaboration Requests:
+Email: dev.mozzammelridoy@gmail.com
+LinkedIn: https://linkedin.com/in/MozzammelRidoy
+
+4. Disclaimer of Warranty
+   The Software is provided “AS IS” without any warranty of any kind, either express or implied, including but not limited to warranties of merchantability, fitness for a particular purpose, or non-infringement.
+
+5. Limitation of Liability
+   In no event shall the Author be liable for any damages (direct, indirect, incidental, or consequential) arising from the use or inability to use the Software.
+
+6. Intellectual Property
+   All intellectual property rights, including copyrights and trademarks, in the Software remain the property of the Author. This Agreement does not grant any rights to the source code, other than the compiled / distributed form provided on npm.
+
+7. Termination
+   This Agreement is effective until terminated. The Agreement will terminate automatically if the User fails to comply with any term herein. Upon termination, the User must destroy all copies of the Software in their possession.
+
+By using this Software, you acknowledge that you have read this Agreement, understand it, and agree to be bound by its terms.
