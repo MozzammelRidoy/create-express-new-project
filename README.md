@@ -6,7 +6,7 @@
 
 A powerful and professional [Express.js project generator CLI](https://www.npmjs.com/package/express-project-builder) that instantly scaffolds a production-ready backend with [TypeScript](https://www.typescriptlang.org), [Modular Architecture](#Folder-Structure), and built-in support for [MongoDB (Mongoose)](https://mongoosejs.com/) or [PostgreSQL (Prisma)](https://www.prisma.io/). Includes authentication, error handling, rate limiting, file upload, caching, and utility functions—so you can focus on building features instead of boilerplate. Perfect for kickstarting your next Express.js API project with best practices and modern tools.
 
-## Table of contents
+## Table of Contents
 
 - [Quick Start](#Quick-Start)
 - [Key Elements](#Key-Elements)
@@ -900,3 +900,23 @@ Your support helps maintain and improve this open-source effort.
 - **Email:** [dev.mozzammelridoy@gmail.com](mailto:dev.mozzammelridoy@gmail.com)
 - **WhatsApp:** [+8801889816198](https://wa.me/8801889816198)
 - **LinkedIn:** [linkedin.com/in/MozzammelRidoy](https://linkedin.com/in/MozzammelRidoy)
+
+## [Impotance](#Impotance)
+
+This package is not just a tool — it’s the beginning of a growing developer community.  
+Our goal is to continuously enhance the developer experience by integrating more advanced features and modern technologies over time.
+
+### 🤝 Community Vision
+
+Through this project, we aim to build a collaborative space where **global senior developers** can share their real-world development experiences, best practices, and technical insights.  
+By connecting developers from different countries and backgrounds, we can learn from each other, grow faster, and contribute to raising international development standards.
+
+### 🔄 Regular Updates
+
+This package will be actively maintained and updated with new improvements, features, and optimizations.  
+To stay up to date and never miss an important release, you can follow me on:
+
+- **GitHub:** [github.com/MozzammelRidoy](https://github.com/MozzammelRidoy)
+- **LinkedIn:** [linkedin.com/in/MozzammelRidoy](https://linkedin.com/in/MozzammelRidoy)
+- **YouTube:** [youtube.com/@MozzammelRidoy](https://youtube.com/@MozzammelRidoy)
+- **Facebook:** [facebook.com/MozzammelRidoyAR](https://www.facebook.com/MozzammelRidoyAR)
