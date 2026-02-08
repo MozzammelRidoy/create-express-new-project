@@ -137,6 +137,7 @@ my-test-project/
 ├── eslint.config.mjs
 ├── package-lock.json
 ├── package.json
+├── prisma.config.ts
 └── tsconfig.json
 ```
 
@@ -152,11 +153,13 @@ my-test-project/
 - [eslint-plugin-prettier (5.5.4)](https://www.npmjs.com/package/eslint-plugin-prettier)
 - [express (5.1.0)](https://www.npmjs.com/package/express)
 - [jsonwebtoken (9.0.2)](https://www.npmjs.com/package/jsonwebtoken)
-- [mongoose (8.19.1)](https://www.npmjs.com/package/mongoose)
+- [mongoose (9.1.5)](https://www.npmjs.com/package/mongoose)
 - [multer (2.0.2-lts.1)](https://www.npmjs.com/package/multer)
 - [node-cache (5.1.2)](https://www.npmjs.com/package/node-cache)
 - [nodemailer (7.0.6)](https://www.npmjs.com/package/nodemailer)
-- [@prisma/client (6.16.1)](https://www.npmjs.com/package/@prisma/client)
+- [@prisma/client (7.3.0)](https://www.npmjs.com/package/@prisma/client)
+- [@prisma/adapter-pg (7.3.0)](https://www.npmjs.com/package/@prisma/adapter-ppg)
+- [pg (8.18.0)](https://www.npmjs.com/package/pg)
 - [zod (3.24.1)](https://www.npmjs.com/package/zod)
 
 ### Development Dependencies
@@ -173,7 +176,7 @@ my-test-project/
 - [eslint (9.35.0)](https://www.npmjs.com/package/eslint)
 - [eslint-config-prettier (10.1.8)](https://www.npmjs.com/package/eslint-config-prettier)
 - [globals (16.4.0)](https://www.npmjs.com/package/globals)
-- [prisma (6.16.1)](https://www.npmjs.com/package/prisma)
+- [prisma (7.3.0)](https://www.npmjs.com/package/prisma)
 - [prettier (3.6.2)](https://www.npmjs.com/package/prettier)
 - [ts-node-dev (2.0.0)](https://www.npmjs.com/package/ts-node-dev)
 - [typescript (5.9.2)](https://www.npmjs.com/package/typescript)
@@ -301,14 +304,14 @@ import auth from "../../middlewares/auth";
 router.get(
   "/users",
   auth("user", "admin", "superAdmin", "developer"), // Only users with these roles can access
-  UsersControllers.getAllUsers
+  UsersControllers.getAllUsers,
 );
 
 // Protect a route without role checking (just verify token)
 router.get(
   "/profile",
   auth("user", "admin", "superAdmin", "developer", true), // Any authenticated user can access
-  UsersController.getUserProfile
+  UsersController.getUserProfile,
 );
 ```
 
@@ -380,7 +383,7 @@ router.post(
     },
   ]),
   formDataToSetJSONformatData, // Convert form data to JSON
-  ProductController.createProduct
+  ProductController.createProduct,
 );
 ```
 
@@ -428,7 +431,7 @@ import { ProductValidation } from "../../app/models/product_validationZodSchema"
 router.post(
   "/create",
   validateRequest(ProductValidation.createProduct_ValidationZodSchema),
-  ProductControllers.createProduct
+  ProductControllers.createProduct,
 );
 
 // /src/app/models/product_validationZodSchema.ts
@@ -508,7 +511,7 @@ const get_All_Products = catchAsync(async (req, res) => {
   // Your async controller logic here
   const result = await Product_Services.get_All_Products_FromDB(
     req.body,
-    req.query
+    req.query,
   );
 
   res.status(200).json({
@@ -579,7 +582,7 @@ const barcodeId = generateRandomBarcodeId(); // Returns: "153.04.55.022"
 const token = createToken(
   { user_id: "123", role: "admin" },
   config.jwt_access_token_secret,
-  config.jwt_access_token_expires_in
+  config.jwt_access_token_expires_in,
 ); // Returns JWT token
 
 // JWT Token Verify and Decode
@@ -606,7 +609,7 @@ const isInvalid = isValidDate(payload.date); // Returns: false
 // Validate and normalize start and end dates
 const { start, end } = Start_End_DateTime_Validation(
   payload.start_date,
-  payload.end_date
+  payload.end_date,
 );
 // Returns: { start: Date, end: Date } with proper date objects
 
@@ -621,7 +624,7 @@ const isoDate = formatDateToISOString(new Date());
 const daysDiff = getDateDifference(
   payload.start_date,
   payload.end_date,
-  "days"
+  "days",
 ); // Returns: 9
 ```
 
@@ -729,7 +732,7 @@ import sendResponse from "../../utils/sendResponse";
 const get_AllProducts = catchAsync(async (req, res) => {
   const result = await Product_Services.fetch_AllProductsFromDB(
     req.params.user_id,
-    req.query
+    req.query,
   );
 
   res.status(200).json({
@@ -744,7 +747,7 @@ const get_AllProducts = catchAsync(async (req, res) => {
 const get_AllProducts = catchAsync(async (req, res) => {
   const result = await Product_Services.fetch_AllProductsFromDB(
     req.params.user_id,
-    req.query
+    req.query,
   );
 
   sendResponse(res, {
