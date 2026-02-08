@@ -48,7 +48,7 @@
     "LICENSE"
   ],
   "dependencies": {
-    "express-project-builder": "^1.0.37"
+    "express-project-builder": "^1.0.38"
   },
   "engines": {
     "node": ">=14.0.0"
