@@ -228,43 +228,165 @@ my-test-project/
 - /src/app/builder/**PrismaQueryBuilder.ts** <br/>
   A fluent API for building complex SQL queries with Prisma. Simplifies dynamic query construction for search, filtering, sorting, pagination, and field selection in a chainable interface.
 
-  ```typescript
-  // In your controller/service:
-  import PrismaQueryBuilder from "../../builder/PrismaQueryBuilder";
+```typescript
+// ===============================
+// Example Usage: PrismaQueryBuilder
+// ===============================
 
-  // Extract query parameters from request (e.g., ?search=keyword&page=1&limit=10)
-  const { page, limit, sort, search, fields, ...filters } = req.query;
+import PrismaQueryBuilder from "../../builder/PrismaQueryBuilder";
+import { prisma } from "../../shared/prisma";
 
-  // Create a new query builder instance
-  const docQuery = new PrismaQueryBuilder(YourModel.find(), req.query)
+// -------------------------------------------------
+// Controller / Service Layer Example
+// -------------------------------------------------
 
-    // Search in specified text fields (e.g., name, description, category)
-    .search(["name", "description", "category"])
+// Extract query parameters from request
+// Example request:
+// /api/docs?search=node&page=1&limit=10&sort=-createdAt&fields=name,price
+const { page, limit, sort, search, fields, ...filters } = req.query;
 
-    // Apply filters dynamically (e.g., status=active, category=tech)
-    .filter()
+/**
+ * Initialize Query Builder
+ *
+ * Parameters:
+ * 1. prisma.youModel -> Prisma model instance (table)
+ * 2. filters -> dynamic filters from query params
+ */
+const docQuery = new PrismaQueryBuilder(prisma.youModel, filters)
 
-    // Sort results (e.g., ?sort=name asc,sort=-createdAt desc)
-    .sort()
+  /**
+   * setBaseQuery()
+   * ------------------------------------
+   * Adds default conditions that will always apply
+   * to the query.
+   *
+   * Example use cases:
+   * - Soft delete filtering
+   * - Tenant based filtering
+   * - Default status filtering
+   */
+  .setBaseQuery({
+    isDeleted: false,
+  })
 
-    // Paginate results (e.g., ?page=1&limit=10)
-    .paginate()
+  /**
+   * setSecretFields()
+   * ------------------------------------
+   * Prevents sensitive fields from being returned
+   * in API responses.
+   *
+   * Example:
+   * password, tokens, internal flags etc.
+   */
+  .setSecretFields(["isDeleted", "password", "sensetiveFileds"])
 
-    // Select specific fields (e.g., ?fields=name,price,description)
-    .fields();
+  /**
+   * search()
+   * ------------------------------------
+   * Enables text search across multiple fields.
+   *
+   * Example request:
+   * ?search=node
+   *
+   * This will search "node" in:
+   * name OR description OR category
+   */
+  .search(["name", "description", "category"])
 
-  // Execute the query and get results
-  const result = await docQuery.modelQuery;
+  /**
+   * filter()
+   * ------------------------------------
+   * Applies dynamic filters from query params.
+   *
+   * Example request:
+   * ?status=active&category=tech
+   *
+   * Automatically converts query params
+   * into Prisma "where" conditions.
+   */
+  .filter()
 
-  // Get pagination metadata (total count, page, limit, total pages)
-  const meta = await docQuery.countTotal();
+  /**
+   * sort()
+   * ------------------------------------
+   * Enables sorting of results.
+   *
+   * Example requests:
+   * ?sort=name
+   * ?sort=-createdAt
+   *
+   * "-" indicates descending order.
+   */
+  .sort()
 
-  // Return the results and metadata from service
-  return {
-    result,
-    meta,
-  };
-  ```
+  /**
+   * paginate()
+   * ------------------------------------
+   * Applies pagination.
+   *
+   * Example request:
+   * ?page=2&limit=10
+   *
+   * Converts into:
+   * skip + take (Prisma pagination)
+   */
+  .paginate()
+
+  /**
+   * fields()
+   * ------------------------------------
+   * Allows selecting specific fields.
+   *
+   * Example request:
+   * ?fields=name,price,description
+   *
+   * Only these fields will be returned
+   * in the response.
+   */
+  .fields()
+
+  /**
+   * include()
+   * ------------------------------------
+   * Allows joining related tables using
+   * Prisma's include/select functionality.
+   *
+   * Example:
+   * Including related user/profile data
+   */
+  .include({
+    table_name: {
+      select: {
+        row_1: true,
+        row_2: true,
+      },
+    },
+  });
+
+/**
+ * Execute the final query
+ */
+const result = await docQuery.execute();
+
+/**
+ * Get pagination metadata
+ *
+ * Returns:
+ * total records
+ * current page
+ * limit
+ * total pages
+ */
+const meta = await docQuery.countTotal();
+
+/**
+ * Final response format
+ */
+return {
+  result,
+  meta,
+};
+```
 
 - /src/**config/index.ts** <br/> Central configuration file that manages environment variables and application settings. This file provides a structured way to access environment variables throughout the application.
 
