@@ -6,21 +6,21 @@
 
 A powerful and professional [Express.js project generator CLI](https://www.npmjs.com/package/express-project-builder) that instantly scaffolds a production-ready backend with [TypeScript](https://www.typescriptlang.org), [Modular Architecture](#Folder-Structure), and built-in support for [MongoDB (Mongoose)](https://mongoosejs.com/) or [PostgreSQL (Prisma)](https://www.prisma.io/). Includes authentication, error handling, rate limiting, file upload, caching, and utility functions—so you can focus on building features instead of boilerplate. Perfect for kickstarting your next Express.js API project with best practices and modern tools.
 
-## Table of Contents
+## Table of contents
 
-- [Quick Start](#Quick-Start)
-- [Key Elements](#Key-Elements)
-- [Folder Structure](#Folder-Structure)
-- [Packages](#Packages)
-- [Examples](#Examples)
-- [Contributors](#Contributors)
-- [Sponsors](#Sponsors)
-- [Buy Me a Coffee](#Buy-Me-a-Coffee)
-- [Reporting Issues](#Reporting-Issues)
-- [Impotance](#Impotance)
+- [Quick Start](#quick-start)
+- [Key Elements](#key-elements)
+- [Folder Structure](#folder-structure)
+- [Packages](#packages)
+- [Examples](#examples)
+- [Contributors](#contributors)
+- [Sponsors](#sponsors)
+- [Buy Me a Coffee](#buy-me-a-coffee)
+- [Reporting Issues](#reporting-issues)
+- [Importance](#importance)
 - [License](#license)
 
-# [Quick Start](#Quick-Start)
+# Quick Start
 
 **You don't need to install this package globally. Use it directly with [npx](https://www.npmjs.com/package/npx) Wrapper :**
 
@@ -38,7 +38,7 @@ npm i -g express-project-builder
 npx express-project-builder my-test-project
 ```
 
-## [Key Elements](#Key-Elements)
+## Key Elements
 
 - ### Node.js & Express.js
 - ### JavaScript & TypeScript
@@ -54,7 +54,7 @@ npx express-project-builder my-test-project
 - ### Query Builder & Email Sending (Nodemailer)
 - ### Project Building & Formatting (Prettier & ESLint)
 
-## [Folder Structure](#Folder-Structure)
+## Folder Structure
 
 ```ts
 my-test-project/
@@ -141,10 +141,11 @@ my-test-project/
 └── tsconfig.json
 ```
 
-## [Packages](#Packages)
+## Packages
 
 ### Dependencies
 
+- [awesome-rate-limiter (1.0.0)](https://www.npmjs.com/package/awesome-rate-limiter)
 - [axios (1.12.2)](https://www.npmjs.com/package/axios)
 - [bcryptjs (3.0.2)](https://www.npmjs.com/package/bcryptjs)
 - [cookie-parser (1.4.7)](https://www.npmjs.com/package/cookie-parser)
@@ -182,7 +183,41 @@ my-test-project/
 - [typescript (5.9.2)](https://www.npmjs.com/package/typescript)
 - [typescript-eslint (8.43.0)](https://www.npmjs.com/package/typescript-eslint)
 
-## [Examples](#Examples)
+## Examples
+
+- [awesome-rate-limiter](https://www.npmjs.com/package/awesome-rate-limiter)  
+  Express-compatible rate limiting middleware for protecting APIs from abusive traffic. It supports progressive penalties, so repeated violations can receive longer block durations while normal users continue through safely. [(read the package docs)](https://www.npmjs.com/package/awesome-rate-limiter)
+
+```typescript
+// In your app.ts file for global rate limiting or
+// In your route file for route-specific rate limiting
+
+import { createSlidingRateLimiter } from "awesome-rate-limiter/express";
+
+// Create rate limiter instances with different configurations
+const globalRateLimiter = createSlidingRateLimiter({
+  windowMs: 60 * 1000, // 1 minute window
+  maxRequests: 200, // 200 requests per window
+  initialBlockMs: 15 * 60 * 1000, // 15 minutes initial block
+  skip: (req: Request) => req.path === "/health",
+  // enableLogger: true, // Enable console logs
+  message: {
+    success: false,
+    message: "Too many requests from this IP, please try again later.",
+  },
+  keyGenerator: (req: Request) => {
+    // Get real IP from proxy headers
+    const forwarded = req.headers["x-forwarded-for"] as string;
+    if (forwarded) return forwarded.split(",")[0].trim();
+    return req.ip || req.socket?.remoteAddress || "unknown";
+  },
+});
+// Apply rate limiter to a specific route
+router.get("/products", globalRateLimiter, ProductControllers.getAllProducts);
+
+// Apply rate limiter globally to all API routes
+app.use("/v1/api/", globalRateLimiter, routers);
+```
 
 - /src/app/builder/**MongooseQueryBuilder.ts** <br/>
   A fluent API for building complex MongoDB queries with Mongoose. Simplifies dynamic query construction for search, filtering, sorting, pagination, and field selection in a chainable interface.
@@ -445,7 +480,7 @@ router.get(
 import { bigIntSerializer } from "./app/middlewares/bigIntSerializer";
 
 // Apply globally to all routes
-app.use(bigIntSerialize
+app.use(bigIntSerializer);
 ```
 
 - /src/middlewares/**formDataToSetJSONformatData.ts**  
@@ -507,39 +542,6 @@ router.post(
   formDataToSetJSONformatData, // Convert form data to JSON
   ProductController.createProduct,
 );
-```
-
-- /src/middlewares/**rateLimitingHandler.ts**  
-  Rate limiting middleware to prevent API abuse. Implements progressive rate limiting that increases block duration for repeat offenders.
-
-```typescript
-// In your app.ts file for global rate limiting or
-// In your route file for route-specific rate limiting
-
-import { createProgressiveRateLimiter } from "../../middlewares/rateLimitingHandler";
-
-// Create rate limiter instances with different configurations
-const globalRateLimiter = createProgressiveRateLimiter({
-  windowMs: 60 * 1000, // 1 minute window
-  maxRequests: 200, // 200 requests per window
-  initialBlockMs: 15 * 60 * 1000, // 15 minutes initial block
-  // enableLogger: true, // Enable console logs
-  message: {
-    success: false,
-    message: "Too many requests from this IP, please try again later.",
-  },
-  keyGenerator: (req: Request) => {
-    // Get real IP from proxy headers
-    const forwarded = req.headers["x-forwarded-for"] as string;
-    if (forwarded) return forwarded.split(",")[0].trim();
-    return req.ip || req.socket?.remoteAddress || "unknown";
-  },
-});
-// Apply rate limiter to a specific route
-router.get("/products", globalRateLimiter, ProductControllers.getAllProducts);
-
-// Apply rate limiter globally to all API routes
-app.use("/v1/api/", globalRateLimiter, routers);
 ```
 
 - /src/middlewares/**validateRequest.ts** <br/>
@@ -886,7 +888,7 @@ export const Product_Controllers = {
 };
 ```
 
-## [Contributors](#Contributors)
+## Contributors
 
 <table>
   <tr>
@@ -902,9 +904,9 @@ export const Product_Controllers = {
   </tr>
 </table>
 
-> 💡 Tip: Want to be here? Check out our [Contribution Guidelines](#Reporting-Issues)!
+> 💡 Tip: Want to be here? Check out our [Contribution Guidelines](#reporting-issues)!
 
-## [Sponsors](#Sponsors)
+## Sponsors
 
 <table>
   <tr>
@@ -997,9 +999,13 @@ export const Product_Controllers = {
   </tr>
 </table>
 
-> 💡 **Tip:** Get featured as a Sponsored Partner! Check out our [Sponsorship Guidelines](#Reporting-Issues).
+> 💡 **Tip:** Get featured as a Sponsored Partner! Check out our [Sponsorship Guidelines](#reporting-issues).
 
-## [Reporting Issues](#Reporting-Issues)
+## Buy Me a Coffee
+
+If this package saves you time, you can support future improvements by sponsoring the project or reaching out through the contact options below.
+
+## Reporting Issues
 
 If you encounter any problems while using this package, have ideas for improvements, or wish to discuss sponsorship opportunities, please feel free to reach out. Your feedback helps make this project better for everyone.
 
@@ -1026,7 +1032,7 @@ Your support helps maintain and improve this open-source effort.
 - **WhatsApp:** [+8801889816198](https://wa.me/8801889816198)
 - **LinkedIn:** [linkedin.com/in/MozzammelRidoy](https://linkedin.com/in/MozzammelRidoy)
 
-## [Impotance](#Impotance)
+## Importance
 
 This package is not just a tool — it’s the beginning of a growing developer community.  
 Our goal is to continuously enhance the developer experience by integrating more advanced features and modern technologies over time.
@@ -1046,7 +1052,7 @@ To stay up to date and never miss an important release, you can follow me on:
 - **YouTube:** [youtube.com/@MozzammelRidoy](https://youtube.com/@MozzammelRidoy)
 - **Facebook:** [facebook.com/MozzammelRidoyAR](https://www.facebook.com/MozzammelRidoyAR)
 
-## [License](#license)
+## License
 
 This project is licensed under a **custom End User License Agreement (EULA)**.  
 You may use this package for personal or commercial projects **in its compiled/distributed form only**.
