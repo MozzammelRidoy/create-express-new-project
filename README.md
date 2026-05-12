@@ -145,7 +145,7 @@ my-test-project/
 
 ### Dependencies
 
-- [awesome-rate-limiter (1.0.0)](https://www.npmjs.com/package/awesome-rate-limiter)
+- [awesome-rate-limiter (1.0.1)](https://www.npmjs.com/package/awesome-rate-limiter)
 - [axios (1.12.2)](https://www.npmjs.com/package/axios)
 - [bcryptjs (3.0.2)](https://www.npmjs.com/package/bcryptjs)
 - [cookie-parser (1.4.7)](https://www.npmjs.com/package/cookie-parser)
